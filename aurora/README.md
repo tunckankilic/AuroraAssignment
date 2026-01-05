@@ -896,7 +896,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - 💼 LinkedIn: [linkedin.com/in/ismail-tunc-kankilic](https://linkedin.com/in/ismail-tunc-kankilic)
 - 🐙 GitHub: [@tunckankilic](https://github.com/tunckankilic)
-- 📧 Email: your.email@example.com
+- 📧 Email: ismail.tunc.kankilic@gmail.com
 
 ---
 
