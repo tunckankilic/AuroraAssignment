@@ -24,12 +24,10 @@ class HomeView extends StatelessWidget {
         children: [
           // Layer 1: Blurred Background
           _buildBlurredBackground(viewModel),
-          
+
           // Layer 2: Content
-          SafeArea(
-            child: _buildContent(context, viewModel, imageSize),
-          ),
-          
+          SafeArea(child: _buildContent(context, viewModel, imageSize)),
+
           // Layer 3: Theme Toggle Button (must be in Stack directly)
           _buildThemeToggle(themeViewModel),
         ],
@@ -68,10 +66,7 @@ class HomeView extends StatelessWidget {
                   transitionBuilder: (child, animation) {
                     return RotationTransition(
                       turns: animation,
-                      child: FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      ),
+                      child: FadeTransition(opacity: animation, child: child),
                     );
                   },
                   child: Icon(
@@ -95,24 +90,20 @@ class HomeView extends StatelessWidget {
 
   Widget _buildBlurredBackground(ImageViewModel viewModel) {
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 1200), // Çok daha uzun ve belirgin!
+      duration: const Duration(
+        milliseconds: 1200,
+      ), // Çok daha uzun ve belirgin!
       switchInCurve: Curves.easeInOutCubic,
       switchOutCurve: Curves.easeInOutCubic,
       transitionBuilder: (Widget child, Animation<double> animation) {
         // Fade + Scale animasyonu - çok daha belirgin!
         return FadeTransition(
           opacity: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeInOutCubic,
-            ),
+            CurvedAnimation(parent: animation, curve: Curves.easeInOutCubic),
           ),
           child: ScaleTransition(
             scale: Tween<double>(begin: 1.05, end: 1.0).animate(
-              CurvedAnimation(
-                parent: animation,
-                curve: Curves.easeOutCubic,
-              ),
+              CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
             ),
             child: child,
           ),
@@ -133,9 +124,7 @@ class HomeView extends StatelessWidget {
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeInOutCubic,
                   color: viewModel.backgroundColor.withOpacity(0.3),
-                  child: Container(
-                    color: Colors.black.withOpacity(0.4),
-                  ),
+                  child: Container(color: Colors.black.withOpacity(0.4)),
                 ),
               ),
             )
@@ -147,12 +136,17 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _buildContent(BuildContext context, ImageViewModel viewModel, double imageSize) {
+  Widget _buildContent(
+    BuildContext context,
+    ImageViewModel viewModel,
+    double imageSize,
+  ) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Container(
         constraints: BoxConstraints(
-          minHeight: MediaQuery.of(context).size.height -
+          minHeight:
+              MediaQuery.of(context).size.height -
               MediaQuery.of(context).padding.top -
               MediaQuery.of(context).padding.bottom,
         ),
@@ -160,7 +154,7 @@ class HomeView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 40),
-            
+
             // App Title
             Text(
               'Aurora',
@@ -177,9 +171,9 @@ class HomeView extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 12),
-            
+
             Text(
               'Discover & Inspire',
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -194,12 +188,14 @@ class HomeView extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 60),
-            
+
             // Image or Shimmer - Belirgin ve smooth transition!
             AnimatedSwitcher(
-              duration: const Duration(milliseconds: 1400), // Çok daha uzun ve dramatik!
+              duration: const Duration(
+                milliseconds: 1400,
+              ), // Çok daha uzun ve dramatik!
               switchInCurve: Curves.easeInOutCubic,
               switchOutCurve: Curves.easeInOutCubic,
               transitionBuilder: (Widget child, Animation<double> animation) {
@@ -208,26 +204,39 @@ class HomeView extends StatelessWidget {
                   opacity: Tween<double>(begin: 0.0, end: 1.0).animate(
                     CurvedAnimation(
                       parent: animation,
-                      curve: const Interval(0.0, 1.0, curve: Curves.easeInOutCubic),
+                      curve: const Interval(
+                        0.0,
+                        1.0,
+                        curve: Curves.easeInOutCubic,
+                      ),
                     ),
                   ),
                   child: ScaleTransition(
                     scale: Tween<double>(begin: 0.85, end: 1.0).animate(
                       CurvedAnimation(
                         parent: animation,
-                        curve: const Interval(0.0, 0.8, curve: Curves.easeOutCubic),
+                        curve: const Interval(
+                          0.0,
+                          0.8,
+                          curve: Curves.easeOutCubic,
+                        ),
                       ),
                     ),
                     child: SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(0, 0.1),
-                        end: Offset.zero,
-                      ).animate(
-                        CurvedAnimation(
-                          parent: animation,
-                          curve: const Interval(0.0, 0.7, curve: Curves.easeOutCubic),
-                        ),
-                      ),
+                      position:
+                          Tween<Offset>(
+                            begin: const Offset(0, 0.1),
+                            end: Offset.zero,
+                          ).animate(
+                            CurvedAnimation(
+                              parent: animation,
+                              curve: const Interval(
+                                0.0,
+                                0.7,
+                                curve: Curves.easeOutCubic,
+                              ),
+                            ),
+                          ),
                       child: child,
                     ),
                   ),
@@ -239,24 +248,27 @@ class HomeView extends StatelessWidget {
                       size: imageSize,
                     )
                   : viewModel.imageUrl != null
-                      ? ImageCard(
-                          key: ValueKey(viewModel.imageUrl),
-                          imageUrl: viewModel.imageUrl!,
-                          size: imageSize,
-                        )
-                      : Container(
-                          key: const ValueKey('empty'),
-                          width: imageSize,
-                          height: imageSize,
-                        ),
+                  ? ImageCard(
+                      key: ValueKey(viewModel.imageUrl),
+                      imageUrl: viewModel.imageUrl!,
+                      size: imageSize,
+                    )
+                  : SizedBox(
+                      key: const ValueKey('empty'),
+                      width: imageSize,
+                      height: imageSize,
+                    ),
             ),
-            
+
             const SizedBox(height: 60),
-            
+
             // Error Message
             if (viewModel.errorMessage != null)
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 16,
+                ),
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -269,10 +281,7 @@ class HomeView extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      const Icon(
-                        Icons.error_outline,
-                        color: Colors.redAccent,
-                      ),
+                      const Icon(Icons.error_outline, color: Colors.redAccent),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
@@ -287,13 +296,13 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
               ),
-            
+
             // Another Button
             AnotherButton(
               onPressed: viewModel.fetchImage,
               isLoading: viewModel.isLoading && viewModel.imageUrl == null,
             ),
-            
+
             const SizedBox(height: 40),
           ],
         ),
@@ -301,4 +310,3 @@ class HomeView extends StatelessWidget {
     );
   }
 }
-

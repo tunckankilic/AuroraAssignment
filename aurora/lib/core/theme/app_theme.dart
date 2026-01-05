@@ -7,7 +7,7 @@ class AppTheme {
   static const Color surface = Color(0xFF1A1A1A);
   static const Color backgroundDark = Color(0xFF121212);
   static const Color cardBackground = Color(0xFF1E1E1E);
-  
+
   // Light mode colors
   static const Color primaryLight = Color(0xFFF5F5F5);
   static const Color surfaceLight = Color(0xFFFFFFFF);
@@ -18,26 +18,22 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: primaryDark,
-      
+
       colorScheme: ColorScheme.dark(
         primary: accentGold,
         secondary: accentGold,
         surface: surface,
-        background: backgroundDark,
         onPrimary: Colors.black,
         onSecondary: Colors.black,
         onSurface: Colors.white,
-        onBackground: Colors.white,
       ),
-      
+
       cardTheme: CardThemeData(
         color: cardBackground,
         elevation: 8,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
-      
+
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: accentGold,
@@ -54,7 +50,7 @@ class AppTheme {
           ),
         ),
       ),
-      
+
       textTheme: const TextTheme(
         displayLarge: TextStyle(
           fontSize: 32,
@@ -86,26 +82,22 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       scaffoldBackgroundColor: primaryLight,
-      
+
       colorScheme: ColorScheme.light(
         primary: accentGoldLight,
         secondary: accentGoldLight,
         surface: surfaceLight,
-        background: primaryLight,
         onPrimary: Colors.white,
         onSecondary: Colors.white,
         onSurface: Colors.black,
-        onBackground: Colors.black,
       ),
-      
+
       cardTheme: CardThemeData(
         color: surfaceLight,
         elevation: 8,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
-      
+
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: accentGoldLight,
@@ -122,7 +114,7 @@ class AppTheme {
           ),
         ),
       ),
-      
+
       textTheme: const TextTheme(
         displayLarge: TextStyle(
           fontSize: 32,
@@ -149,4 +141,3 @@ class AppTheme {
     );
   }
 }
-

@@ -55,7 +55,7 @@ class ImageViewModel extends ChangeNotifier {
       debugPrint('First image shown, prefetching next 2...');
       unawaited(_fillQueue());
     } else {
-      _errorMessage = 'İlk görsel yüklenemedi';
+      _errorMessage = 'First image failed to load';
       _isLoading = false;
       notifyListeners();
     }

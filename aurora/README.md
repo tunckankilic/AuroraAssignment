@@ -29,9 +29,9 @@ A tiny mobile app that fetches a random image from an API and displays it center
 ## 📱 Screenshots & Demo
 
 ### 🎥 Video Demo
-> **[📹 Watch Demo Video](./demo.mp4)** *(Coming Soon)*
+> **[📹 Watch Demo Video](./screenshots/video.mov)**
 
-*30-second walkthrough showcasing instant transitions, blurred backgrounds, theme switching, and emergency loading.*
+*30-second walkthrough showcasing instant transitions, blurred backgrounds, theme switching, and 2-image queue system.*
 
 ### 📸 Screenshots
 
@@ -170,49 +170,6 @@ lib/
 | **cached_network_image** | ^3.3.1 | Image Caching & Loading |
 | **palette_generator** | ^0.3.3 | Dominant Color Extraction |
 | **shimmer** | ^3.0.0 | Loading Placeholders |
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Flutter SDK 3.10 or higher
-- Dart SDK 3.0 or higher
-- iOS Simulator / Android Emulator / Physical Device
-
-### Installation
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/yourusername/aurora.git
-cd aurora
-```
-
-2. **Install dependencies**
-```bash
-flutter pub get
-```
-
-3. **Run the app**
-```bash
-# iOS Simulator
-flutter run -d ios
-
-# Android Emulator
-flutter run -d android
-
-# Chrome (Web)
-flutter run -d chrome
-```
-
-4. **Build for production**
-```bash
-# iOS
-flutter build ios --release
-
-# Android
-flutter build apk --release
-```
 
 ---
 
