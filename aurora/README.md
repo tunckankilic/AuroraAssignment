@@ -26,13 +26,18 @@ A tiny mobile app that fetches a random image from an API and displays it center
 
 **Result:** All requirements met + premium polish with queue system, haptic feedback, and blurred backgrounds.
 
-## 📱 Screenshots
+## 📱 Screenshots & Demo
+
+### 🎥 Video Demo
+> **[📹 Watch Demo Video](./screenshots/video.mov)**
+
+*30-second walkthrough showcasing instant transitions, blurred backgrounds, theme switching, and 2-image queue system.*
+
+### 📸 Screenshots
 
 | Home Screen | Loading State | Transition |
 |-------------|---------------|------------|
 | ![Home](./screenshots/home.png) | ![Loading](./screenshots/loading.png) | ![Transition](./screenshots/transition.png) |
-
-> **Note:** Add your screenshots to `./screenshots/` folder
 
 ---
 
@@ -49,33 +54,33 @@ A tiny mobile app that fetches a random image from an API and displays it center
 | **Core** | API Integration | ✅ | Unsplash via endpoint |
 | **Core** | Loading State | ✅ | Shimmer + spinner |
 | **Core** | Error Handling | ✅ | 3x retry, graceful |
-| **Core** | Smooth Transitions | ✅ | 350ms optimized |
+| **Core** | Smooth Transitions | ✅ | 1400ms smooth |
 | **Core** | Light/Dark Mode | ✅ | Full theme support |
 | **Core** | Accessibility | ✅ | WCAG AAA |
 | **Core** | Caching Strategy | ✅ | Queue + disk cache |
 | **Extra** | Haptic Feedback | ⭐ | iOS/Android |
 | **Extra** | Press Animations | ⭐ | Micro-interactions |
-| **Extra** | Queue System | ⭐ | 0ms transitions |
+| **Extra** | Queue System | ⭐ | 2-image buffer |
 | **Extra** | Theme Toggle | ⭐ | Dynamic switching |
-| **Extra** | HTTP Validation | ⭐ | HEAD requests |
+| **Extra** | Retry Logic | ⭐ | 3x automatic retry |
 
 ### Core Features
 - 🖼️ **Random Image Display**: Fetches high-quality images from Unsplash
 - 🎨 **Dynamic Background**: Real-time blurred backdrop with color extraction
-- 🔄 **Instant Transitions**: 0ms page-flip experience with lookahead queue
-- ⚡ **Smart Caching**: Pre-fetches next 2 images with colors for seamless transitions
-- 💫 **Smooth Animations**: 350ms fade transitions with optimized curves
+- 🔄 **Instant Transitions**: 2-image lookahead queue for seamless page flips
+- ⚡ **Smart Caching**: Pre-fetches next 2 images with colors
+- 💫 **Smooth Animations**: 1400ms fade transitions with optimized curves
 - 📳 **Haptic Feedback**: Tactile response on interactions (iOS/Android)
 - 🎯 **Press Animations**: Immediate visual feedback on button press
 
 ### Technical Features
 - 🏗️ **MVVM Architecture**: Clean separation of concerns
-- 📦 **Queue System**: Always 2 images ready ahead (lookahead buffering)
+- 📦 **Queue System**: 2-image lookahead buffer for instant transitions
 - 🎨 **Color Extraction**: Automatic dominant color detection
 - 🌓 **Dark/Light Mode**: Full theme support with toggle
 - ♿ **Accessibility**: Semantic labels and proper touch targets
-- 🔁 **Auto Retry**: 3x retry with HTTP HEAD validation
-- 💾 **Memory Optimized**: Efficient queue management
+- 🔁 **Auto Retry**: 3x retry on failures
+- 💾 **Memory Optimized**: Lightweight sequential loading
 
 ---
 
@@ -84,24 +89,24 @@ A tiny mobile app that fetches a random image from an API and displays it center
 | Metric | Value | Note |
 |--------|-------|------|
 | **Initial Load** | 1-2s | First image + color extraction |
-| **Image Transition** | 0ms | Instant from lookahead queue |
-| **Queue Size** | 2 images | Optimal memory/performance balance |
-| **Animation Duration** | 350ms | Image fade-in |
-| **Color Transition** | 500ms | Background color change |
-| **API Retry** | 3x | With 200ms delay between retries |
+| **Image Transition** | Instant | From 2-image queue |
+| **Queue Size** | 2 images | Perfect balance (tiny + responsive) |
+| **Animation Duration** | 1400ms | Smooth image fade-in |
+| **Color Transition** | 1200ms | Background color change |
+| **API Retry** | 3x | With 300ms delay between retries |
 
-### Queue System (Lookahead Buffering)
+### Queue System (Simple & Effective)
 ```
 Current Image: [Image 1]
     ↓
 Queue: [Image 2 + Color, Image 3 + Color]
     ↓
-Tap "Another" → Instant switch to Image 2 (0ms)
+Tap "Another" → Instant switch to Image 2
     ↓
 Background: Queue refills with Image 4 + Color
 ```
 
-**Result:** Book-flip speed transitions! 📖⚡
+**Result:** Smooth, premium transitions! 📖⚡
 
 ---
 
@@ -165,49 +170,6 @@ lib/
 | **cached_network_image** | ^3.3.1 | Image Caching & Loading |
 | **palette_generator** | ^0.3.3 | Dominant Color Extraction |
 | **shimmer** | ^3.0.0 | Loading Placeholders |
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Flutter SDK 3.10 or higher
-- Dart SDK 3.0 or higher
-- iOS Simulator / Android Emulator / Physical Device
-
-### Installation
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/yourusername/aurora.git
-cd aurora
-```
-
-2. **Install dependencies**
-```bash
-flutter pub get
-```
-
-3. **Run the app**
-```bash
-# iOS Simulator
-flutter run -d ios
-
-# Android Emulator
-flutter run -d android
-
-# Chrome (Web)
-flutter run -d chrome
-```
-
-4. **Build for production**
-```bash
-# iOS
-flutter build ios --release
-
-# Android
-flutter build apk --release
-```
 
 ---
 
