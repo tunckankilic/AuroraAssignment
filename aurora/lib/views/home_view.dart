@@ -95,13 +95,27 @@ class HomeView extends StatelessWidget {
 
   Widget _buildBlurredBackground(ImageViewModel viewModel) {
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 400), // Daha hızlı!
-      switchInCurve: Curves.easeOut,
-      switchOutCurve: Curves.easeIn,
+      duration: const Duration(milliseconds: 1200), // Çok daha uzun ve belirgin!
+      switchInCurve: Curves.easeInOutCubic,
+      switchOutCurve: Curves.easeInOutCubic,
       transitionBuilder: (Widget child, Animation<double> animation) {
+        // Fade + Scale animasyonu - çok daha belirgin!
         return FadeTransition(
-          opacity: animation,
-          child: child,
+          opacity: Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeInOutCubic,
+            ),
+          ),
+          child: ScaleTransition(
+            scale: Tween<double>(begin: 1.05, end: 1.0).animate(
+              CurvedAnimation(
+                parent: animation,
+                curve: Curves.easeOutCubic,
+              ),
+            ),
+            child: child,
+          ),
         );
       },
       child: viewModel.imageUrl != null
@@ -183,16 +197,40 @@ class HomeView extends StatelessWidget {
             
             const SizedBox(height: 60),
             
-            // Image or Shimmer
+            // Image or Shimmer - Belirgin ve smooth transition!
             AnimatedSwitcher(
-              duration: const Duration(milliseconds: 350), // Çok daha hızlı!
-              switchInCurve: Curves.easeOutCubic,
-              switchOutCurve: Curves.easeInCubic,
+              duration: const Duration(milliseconds: 1400), // Çok daha uzun ve dramatik!
+              switchInCurve: Curves.easeInOutCubic,
+              switchOutCurve: Curves.easeInOutCubic,
               transitionBuilder: (Widget child, Animation<double> animation) {
-                // Smooth ve hızlı crossfade
+                // Fade + Scale + Slide kombinasyonu - süper belirgin!
                 return FadeTransition(
-                  opacity: animation,
-                  child: child,
+                  opacity: Tween<double>(begin: 0.0, end: 1.0).animate(
+                    CurvedAnimation(
+                      parent: animation,
+                      curve: const Interval(0.0, 1.0, curve: Curves.easeInOutCubic),
+                    ),
+                  ),
+                  child: ScaleTransition(
+                    scale: Tween<double>(begin: 0.85, end: 1.0).animate(
+                      CurvedAnimation(
+                        parent: animation,
+                        curve: const Interval(0.0, 0.8, curve: Curves.easeOutCubic),
+                      ),
+                    ),
+                    child: SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(0, 0.1),
+                        end: Offset.zero,
+                      ).animate(
+                        CurvedAnimation(
+                          parent: animation,
+                          curve: const Interval(0.0, 0.7, curve: Curves.easeOutCubic),
+                        ),
+                      ),
+                      child: child,
+                    ),
+                  ),
                 );
               },
               child: viewModel.isLoading && viewModel.imageUrl == null

@@ -13,8 +13,8 @@ class ShimmerPlaceholder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       baseColor: const Color(0xFF1A1A1A),
-      highlightColor: const Color(0xFFD4AF37),
-      period: const Duration(milliseconds: 1500),
+      highlightColor: const Color(0xFFD4AF37).withOpacity(0.6), // Daha belirgin!
+      period: const Duration(milliseconds: 1200), // Daha hızlı pulse - daha belirgin!
       child: Container(
         width: size,
         height: size,
