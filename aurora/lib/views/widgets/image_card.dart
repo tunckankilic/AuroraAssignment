@@ -44,10 +44,10 @@ class ImageCard extends StatelessWidget {
             child: CachedNetworkImage(
               imageUrl: imageUrl,
               fit: BoxFit.cover,
-              fadeInDuration: const Duration(milliseconds: 800),
-              fadeOutDuration: const Duration(milliseconds: 400),
-              fadeInCurve: Curves.easeInOut,
-              fadeOutCurve: Curves.easeInOut,
+              fadeInDuration: const Duration(milliseconds: 200), // Çok hızlı!
+              fadeOutDuration: const Duration(milliseconds: 150),
+              fadeInCurve: Curves.easeOut,
+              fadeOutCurve: Curves.easeIn,
               placeholder: (context, url) => ShimmerPlaceholder(size: size),
               errorWidget: (context, url, error) => Container(
                 color: const Color(0xFF1A1A1A),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../viewmodels/image_viewmodel.dart';
+import '../viewmodels/theme_viewmodel.dart';
 import 'widgets/image_card.dart';
 import 'widgets/another_button.dart';
 import 'widgets/shimmer_placeholder.dart';
@@ -13,6 +14,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<ImageViewModel>(context);
+    final themeViewModel = Provider.of<ThemeViewModel>(context);
     final size = MediaQuery.of(context).size;
     final imageSize = size.width * 0.75 > 400 ? 400.0 : size.width * 0.75;
 
@@ -23,20 +25,85 @@ class HomeView extends StatelessWidget {
           // Layer 1: Blurred Background
           _buildBlurredBackground(viewModel),
           
-          // Layer 2 & 3: Content
+          // Layer 2: Content
           SafeArea(
             child: _buildContent(context, viewModel, imageSize),
           ),
+          
+          // Layer 3: Theme Toggle Button (must be in Stack directly)
+          _buildThemeToggle(themeViewModel),
         ],
+      ),
+    );
+  }
+
+  Widget _buildThemeToggle(ThemeViewModel themeViewModel) {
+    return Positioned(
+      top: 16,
+      right: 16,
+      child: SafeArea(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOutCubic,
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.3),
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: themeViewModel.toggleTheme,
+              borderRadius: BorderRadius.circular(24),
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  transitionBuilder: (child, animation) {
+                    return RotationTransition(
+                      turns: animation,
+                      child: FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      ),
+                    );
+                  },
+                  child: Icon(
+                    themeViewModel.isDarkMode
+                        ? Icons.light_mode_rounded
+                        : Icons.dark_mode_rounded,
+                    key: ValueKey(themeViewModel.isDarkMode),
+                    color: themeViewModel.isDarkMode
+                        ? const Color(0xFFD4AF37)
+                        : const Color(0xFFB8860B),
+                    size: 24,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildBlurredBackground(ImageViewModel viewModel) {
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 1000),
-      switchInCurve: Curves.easeInOut,
-      switchOutCurve: Curves.easeInOut,
+      duration: const Duration(milliseconds: 400), // Daha hızlı!
+      switchInCurve: Curves.easeOut,
+      switchOutCurve: Curves.easeIn,
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
       child: viewModel.imageUrl != null
           ? Container(
               key: ValueKey(viewModel.imageUrl),
@@ -49,8 +116,8 @@ class HomeView extends StatelessWidget {
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 60, sigmaY: 60),
                 child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 800),
-                  curve: Curves.easeInOut,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOutCubic,
                   color: viewModel.backgroundColor.withOpacity(0.3),
                   child: Container(
                     color: Colors.black.withOpacity(0.4),
@@ -59,8 +126,8 @@ class HomeView extends StatelessWidget {
               ),
             )
           : AnimatedContainer(
-              duration: const Duration(milliseconds: 800),
-              curve: Curves.easeInOut,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOutCubic,
               color: viewModel.backgroundColor,
             ),
     );
@@ -118,21 +185,14 @@ class HomeView extends StatelessWidget {
             
             // Image or Shimmer
             AnimatedSwitcher(
-              duration: const Duration(milliseconds: 600),
+              duration: const Duration(milliseconds: 350), // Çok daha hızlı!
               switchInCurve: Curves.easeOutCubic,
               switchOutCurve: Curves.easeInCubic,
               transitionBuilder: (Widget child, Animation<double> animation) {
+                // Smooth ve hızlı crossfade
                 return FadeTransition(
                   opacity: animation,
-                  child: ScaleTransition(
-                    scale: Tween<double>(begin: 0.92, end: 1.0).animate(
-                      CurvedAnimation(
-                        parent: animation,
-                        curve: Curves.easeOutBack,
-                      ),
-                    ),
-                    child: child,
-                  ),
+                  child: child,
                 );
               },
               child: viewModel.isLoading && viewModel.imageUrl == null
@@ -193,7 +253,7 @@ class HomeView extends StatelessWidget {
             // Another Button
             AnotherButton(
               onPressed: viewModel.fetchImage,
-              isLoading: viewModel.isLoading,
+              isLoading: viewModel.isLoading && viewModel.imageUrl == null,
             ),
             
             const SizedBox(height: 40),

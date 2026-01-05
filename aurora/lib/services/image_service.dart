@@ -4,7 +4,7 @@ import '../models/image_model.dart';
 
 class ImageService {
   static const String _baseUrl = 'https://november7-730026606190.europe-west1.run.app';
-  static const String _imageEndpoint = '/image/';
+  static const String _imageEndpoint = '/image';
 
   Future<ImageModel> fetchRandomImage() async {
     try {
