@@ -29,7 +29,8 @@ A tiny mobile app that fetches a random image from an API and displays it center
 ## 📱 Screenshots & Demo
 
 ### 🎥 Video Demo
-> **[📹 Watch Demo Video](https://youtube.com/shorts/QCJtcx7C-To?feature=share)**
+
+![Demo Video](./screenshots/video.mp4)
 
 *30-second walkthrough showcasing instant transitions, blurred backgrounds, theme switching, and 2-image queue system.*
 
